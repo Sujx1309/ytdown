@@ -590,16 +590,5 @@ def download():
     return Response(generate(), mimetype="text/event-stream",
                     headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
 
-# ── Launch ────────────────────────────────────────────────────────────────────
-def open_browser():
-    import time; time.sleep(1.5)
-    webbrowser.open("http://localhost:5000")
-
 if __name__ == "__main__":
-    print("\n" + "="*45)
-    print("  ▶  YouTube Downloader — Multi")
-    print("  Opening http://localhost:5000 ...")
-    print("  Press Ctrl+C to stop")
-    print("="*45 + "\n")
-    threading.Thread(target=open_browser, daemon=True).start()
-    app.run(debug=False, threaded=True, port=5000)
+    app.run(host='0.0.0.0', port=10000)
