@@ -4,7 +4,7 @@ Just run:  python ytdown.py  or double-click START.bat
 Auto-installs Flask if missing, then opens browser automatically.
 """
 
-import sys, subprocess, os, threading, webbrowser, queue, json, uuidz, shutil
+import sys, subprocess, os, threading, webbrowser, queue, json, uuid, shutil
 
 # ── PyInstaller EXE support ───────────────────────────────────────────────────
 def resource_path(relative):
