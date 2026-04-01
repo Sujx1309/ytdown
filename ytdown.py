@@ -4,7 +4,7 @@ Just run:  python ytdown.py  or double-click START.bat
 Auto-installs Flask if missing, then opens browser automatically.
 """
 
-import sys, subprocess, os, threading, webbrowser, queue, json, uuid
+import sys, subprocess, os, threading, webbrowser, queue, json, uuidz, shutil
 
 # ── PyInstaller EXE support ───────────────────────────────────────────────────
 def resource_path(relative):
@@ -62,8 +62,8 @@ except ImportError:
 from flask import Flask, request, Response
 
 # આ લાઈનો શોધો અને નીચે મુજબ બદલી નાખો
-YTDLP_BIN  = "yt-dlp"  # Render પર સીધું નામ લખવાથી ચાલી જશે
-FFMPEG_BIN = "ffmpeg"  # કારણ કે આપણે Docker/Apt થી તેને ઇન્સ્ટોલ કરીશું
+YTDLP_BIN  = shutil.which("yt-dlp") or "yt-dlp" # Render પર સીધું નામ લખવાથી ચાલી જશે
+FFMPEG_BIN = shutil.which("ffmpeg") or "ffmpeg"  # કારણ કે આપણે Docker/Apt થી તેને ઇન્સ્ટોલ કરીશું
 
 HTML = r"""<!DOCTYPE html>
 <html lang="en">
