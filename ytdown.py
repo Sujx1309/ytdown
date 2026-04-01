@@ -61,8 +61,9 @@ except ImportError:
 
 from flask import Flask, request, Response
 
-YTDLP_BIN  = find_tool("yt-dlp")
-FFMPEG_BIN = find_tool("ffmpeg")
+# આ લાઈનો શોધો અને નીચે મુજબ બદલી નાખો
+YTDLP_BIN  = "yt-dlp"  # Render પર સીધું નામ લખવાથી ચાલી જશે
+FFMPEG_BIN = "ffmpeg"  # કારણ કે આપણે Docker/Apt થી તેને ઇન્સ્ટોલ કરીશું
 
 HTML = r"""<!DOCTYPE html>
 <html lang="en">
@@ -515,15 +516,15 @@ function startAll() {
 </html>"""
 
 # ── Flask ─────────────────────────────────────────────────────────────────────
-server = Flask(__name__)
-DOWNLOAD_DIR = os.path.join(os.path.expanduser("~"), "Downloads")
+app = Flask(__name__)
+DOWNLOAD_DIR = "/tmp" # Render પર કામચલાઉ ફાઈલો સેવ કરવા માટે આ બેસ્ટ છે
 os.makedirs(DOWNLOAD_DIR, exist_ok=True)
 
-@server.route("/")
+@app.route("/")
 def index():
     return HTML
 
-@server.route("/download")
+@app.route("/download")
 def download():
     url     = request.args.get("url", "").strip()
     fmt     = request.args.get("format", "mp4")
@@ -601,4 +602,4 @@ if __name__ == "__main__":
     print("  Press Ctrl+C to stop")
     print("="*45 + "\n")
     threading.Thread(target=open_browser, daemon=True).start()
-    server.run(debug=False, threaded=True, port=5000)
+    app.run(debug=False, threaded=True, port=5000)
